@@ -1,7 +1,12 @@
 class Scraper
 
+    
+    
     def get_page
-        Nokogiri::HTML(open(Scraper.parsed_url(zip_input)))
+        browser = Watir::Browser.new(:phantomjs)
+        browser.goto(parsed_url)
+        Nokogiri::HTML(browser.html)
+        # Nokogiri::HTML(open(Scraper.parsed_url(zip_input)))
     end
 
     def self.parsed_url(zip_input)
