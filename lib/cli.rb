@@ -17,6 +17,7 @@ class CLI
         puts "#{specific_opportunity.name}"
         puts "  - #{specific_opportunity.date}"
         puts "  - #{specific_opportunity.location}" 
+        puts "  - #{specific_opportunity.about}" 
     end
 
 
@@ -45,7 +46,8 @@ class CLI
         specific_opportunity = Opportunity.all[details_input]
         specific_link = specific_opportunity.link
         Scraper.specific_url(specific_link)
-        Scraper.scrape_specific_opportunities.add_about
+        Scraper.scrape_specific_opportunities
+        Scraper.add_about
 
         puts "printing details soon!"
         print_details(specific_opportunity)

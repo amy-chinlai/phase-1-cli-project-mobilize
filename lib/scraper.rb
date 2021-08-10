@@ -23,8 +23,7 @@ class Scraper
     end
 
     def self.specific_url(link)
-        puts "#{specific_opportunity.link}"
-        @specific_url = "https://www.mobilize.us/#{link}"
+        @specific_url = "https://www.mobilize.us#{link}"
     end
 
     def self.make_opportunities
@@ -57,14 +56,17 @@ class Scraper
 
     def self.scrape_specific_opportunities
         browser = Watir::Browser.new
-        browser.goto(specific_url(@specific_url))
+        browser.goto(@specific_url)
         doc = Nokogiri::HTML(browser.html)
 
-        @about = doc.css("#collapseEventDetail-description")
+        @about = doc.css("#collapseEventDetail-description").text
     end
 
     def self.add_about
-        Opportunity.add_about_from_page(@about)
+        Opportunity.all.select do |event|
+            event.about = @about
+        end
+        # Opportunity.add_about_from_page(@about)
     end
 
 
