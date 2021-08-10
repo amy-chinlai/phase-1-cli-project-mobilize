@@ -15,6 +15,7 @@ class CLI
 
         zip_input = gets.strip
         Scraper.parsed_url(zip_input)
+        puts "done parsing url!"
         Scraper.scrape_opportunities_page
         Scraper.new.make_opportunities
         # Opportunity.new_from_page

@@ -1,7 +1,10 @@
 require 'watir'
 require 'nokogiri'
+require 'geocoder'
 
 class Scraper
+
+    attr_accessor :zip_input
     
     def get_page
         browser = Watir::Browser.new(:phantomjs)
@@ -12,9 +15,11 @@ class Scraper
     end
 
     def self.parsed_url(zip_input)
-        coordinates = Geocoder.search(zip_input).first.coordinates
-        latitude = coordinates[0]
-        longitude = coordinates[1]
+        results = Geocoder.search("#{zip_input}")
+        result = 
+        puts result
+        latitude = results.first.latitude
+        longitude = results.first.longitude
         @url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}lon=#{longitude}&show_all_events=true"
         @url
     end
@@ -27,17 +32,19 @@ class Scraper
 
     def self.scrape_opportunities_page
         browser = Watir::Browser.new
-        browser.goto(parsed_url(@url))
-        Nokogiri::HTML(browser.html)
-        browser = Watir::Browser.new
+        browser.goto(@url)
         doc = Nokogiri::HTML(browser.html)
-        opportunities_list = doc.css(".css-9lofrv")
+        opportunities_list = doc.css(".e1olnexu8")
         @opportunites = []
+        puts "opportunities_list below!"
+        puts opportunities_list
         opportunities_list.each do |opportunity|
             info_hash = Hash.new
-            info_hash[:name] = doc.css(".css-1i6gh54")
-            info_hash[:date] = doc.css(".e1olnexu5")
-            info_hash[:location] = doc.css(".e1olnexu14")
+            info_hash[:name] = doc.css(".css-1i6gh54").text
+            info_hash[:date] = doc.css(".e1olnexu5").text
+            info_hash[:location] = doc.css(".e1olnexu14").text
+            puts "info hash below!"
+            puts info_hash
             @opportunities << info_hash
         end
         @opportunities
