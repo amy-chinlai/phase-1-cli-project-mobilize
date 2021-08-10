@@ -4,7 +4,8 @@ require 'geocoder'
 
 class Scraper
 
-    attr_accessor :zip_input
+    attr_accessor :zip_input, :opportunities
+
     
     def get_page
         browser = Watir::Browser.new(:phantomjs)
@@ -16,40 +17,55 @@ class Scraper
 
     def self.parsed_url(zip_input)
         results = Geocoder.search("#{zip_input}")
-        result = 
-        puts result
         latitude = results.first.latitude
         longitude = results.first.longitude
-        @url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}lon=#{longitude}&show_all_events=true"
-        @url
+        @url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}&lon=#{longitude}&show_all_events=true"
     end
 
-    def make_opportunities
-        Scraper.scrape_opportunities_page.each {|opportunity| Opportunity.new_from_page(opportunity)}
+    def self.specific_url(link)
+        puts "#{specific_opportunity.link}"
+        @specific_url = "https://www.mobilize.us/#{link}"
     end
 
-
+    def self.make_opportunities
+        @opportunities.map {|opportunity| Opportunity.new_from_page(opportunity[:name], opportunity[:date], opportunity[:location], opportunity[:link])}
+    end
 
     def self.scrape_opportunities_page
         browser = Watir::Browser.new
         browser.goto(@url)
         doc = Nokogiri::HTML(browser.html)
-        opportunities_list = doc.css(".e1olnexu8")
-        @opportunites = []
-        puts "opportunities_list below!"
-        puts opportunities_list
+
+        opportunities_list = []
+        doc.css(".e1olnexu8").each do |section|
+            opportunities_list << section
+        end
+
+        @opportunities = []
         opportunities_list.each do |opportunity|
             info_hash = Hash.new
-            info_hash[:name] = doc.css(".css-1i6gh54").text
-            info_hash[:date] = doc.css(".e1olnexu5").text
-            info_hash[:location] = doc.css(".e1olnexu14").text
-            puts "info hash below!"
-            puts info_hash
+            info_hash[:name] = opportunity.css(".css-1i6gh54").text
+            info_hash[:date] = opportunity.css(".e1olnexu5").text
+            info_hash[:location] = opportunity.css(".e1olnexu14").text
+            info_hash[:link] = doc.css(".e1olnexu1").attribute("href").value
             @opportunities << info_hash
         end
         @opportunities
     end
 
+    # for specific opportunities
+
+    def self.scrape_specific_opportunities
+        browser = Watir::Browser.new
+        browser.goto(specific_url(@specific_url))
+        doc = Nokogiri::HTML(browser.html)
+
+        @about = doc.css("#collapseEventDetail-description")
+    end
+
+    def self.add_about
+        Opportunity.add_about_from_page(@about)
+    end
 
 
 end

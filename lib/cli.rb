@@ -5,21 +5,34 @@ require_relative '../lib/opportunity'
 class CLI
 
     def print_opportunities
+        Opportunity.all.each_with_index do |opportunity, index|
+            puts "#{index}. #{opportunity.name}"
+            puts "  - #{opportunity.date}"
+            puts "  - #{opportunity.location}"
+            puts "  - #{opportunity.link}"
+        end
+    end
 
+    def print_details(specific_opportunity)
+        puts "#{specific_opportunity.name}"
+        puts "  - #{specific_opportunity.date}"
+        puts "  - #{specific_opportunity.location}" 
     end
 
 
-    # def begin_search
+    def begin_search
         puts "Hello, and welcome to the Mobilze search CLI!"
         puts "Let's find an event near you. What is your zip code?"
 
         zip_input = gets.strip
+        Scraper.new
         Scraper.parsed_url(zip_input)
         puts "done parsing url!"
         Scraper.scrape_opportunities_page
-        Scraper.new.make_opportunities
+        puts "done scraping opportunities page!"
+        Scraper.make_opportunities
+        puts "done making opportunities!"
         # Opportunity.new_from_page
-
         puts "Thanks!"
 
 
@@ -27,9 +40,17 @@ class CLI
         print_opportunities
 
         puts "Which event would you like to see more details for?"
-        details_input = gets.to_i
+        details_input = gets.to_i - 1
 
-        print_details(opportunity)
+        specific_opportunity = Opportunity.all[details_input]
+        specific_link = specific_opportunity.link
+        Scraper.specific_url(specific_link)
+        Scraper.scrape_specific_opportunities.add_about
+
+        puts "printing details soon!"
+        print_details(specific_opportunity)
+
+        puts "the details have been printed!"
 
         puts "Do you want to see the list of events again? Please enter Y or N."
         again_input = gets.strip.downcase
@@ -43,9 +64,8 @@ class CLI
             begin_search
         end
 
-    # end
+    end
 
-    # begin_search
 
 
 end
