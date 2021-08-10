@@ -1,25 +1,37 @@
-class Scraper
+require 'watir'
+require 'nokogiri'
 
+class Scraper
+    
     def get_page
-        Nokogiri::HTML(open(Scraper.parsed_url(zip_input)))
+        browser = Watir::Browser.new(:phantomjs)
+        # browser.goto(parsed_url)
+        Nokogiri::HTML(browser.html)
+        browser = Watir::Browser.new
+        doc = Nokogiri::HTML(browser.html)
     end
 
     def self.parsed_url(zip_input)
         coordinates = Geocoder.search(zip_input).first.coordinates
         latitude = coordinates[0]
         longitude = coordinates[1]
-        url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}lon=#{longitude}&show_all_events=true"
-        url
+        @url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}lon=#{longitude}&show_all_events=true"
+        @url
     end
 
     def make_opportunities
-        @opportunities.each {|opportunity| Opportunity.new_from_page(opportunity)}
+        Scraper.scrape_opportunities_page.each {|opportunity| Opportunity.new_from_page(opportunity)}
     end
 
 
 
     def self.scrape_opportunities_page
-        opportunities_list = get_page.css(".css-19fddw")
+        browser = Watir::Browser.new
+        browser.goto(parsed_url(@url))
+        Nokogiri::HTML(browser.html)
+        browser = Watir::Browser.new
+        doc = Nokogiri::HTML(browser.html)
+        opportunities_list = doc.css(".css-9lofrv")
         @opportunites = []
         opportunities_list.each do |opportunity|
             info_hash = Hash.new

@@ -14,6 +14,8 @@ class CLI
         puts "Let's find an event near you. What is your zip code?"
 
         zip_input = gets.strip
+        Scraper.parsed_url(zip_input)
+        Scraper.scrape_opportunities_page
         Scraper.new.make_opportunities
         # Opportunity.new_from_page
 
