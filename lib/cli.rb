@@ -1,14 +1,23 @@
 require 'geocoder'
+require_relative '../lib/scraper'
+require_relative '../lib/opportunity'
 
 class CLI
+
+    def print_opportunities
+
+    end
+
 
     # def begin_search
         puts "Hello, and welcome to the Mobilze search CLI!"
         puts "Let's find an event near you. What is your zip code?"
 
         zip_input = gets.strip
+        Scraper.new.make_opportunities
+        # Opportunity.new_from_page
 
-        puts "Thanks! Here's some opportunities near #{zip_input}." 
+        puts "Thanks!"
 
 
         # should I add in a fallback if it's an invalid zip? Or do a regex?
