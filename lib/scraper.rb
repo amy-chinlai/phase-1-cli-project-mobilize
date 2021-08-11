@@ -36,7 +36,7 @@ class Scraper
         doc = Nokogiri::HTML(browser.html)
 
         opportunities_list = []
-        doc.css(".e1olnexu8").each do |section|
+        doc.css(".e1olnexu1").each do |section|
             opportunities_list << section
         end
 
@@ -46,7 +46,7 @@ class Scraper
             info_hash[:name] = opportunity.css(".css-1i6gh54").text
             info_hash[:date] = opportunity.css(".e1olnexu5").text
             info_hash[:location] = opportunity.css(".e1olnexu14").text
-            info_hash[:link] = doc.css(".e1olnexu1").attribute("href").value
+            info_hash[:link] = opportunity.attribute("href").value
             @opportunities << info_hash
         end
         @opportunities

@@ -3,11 +3,11 @@ require 'watir'
 
 class SpecificScraper
 
-    def specific_url(link)
-        puts "before calling @specific_url"
-        @specific_url = "https://www.mobilize.us#{link}"
-        puts "after calling @specific_url"
-    end
+    # def specific_url(link)
+    #     puts "before calling @specific_url"
+    #     @specific_url = "https://www.mobilize.us#{link}"
+    #     puts "after calling @specific_url"
+    # end
     
     def self.scrape_specific_opportunities(link)
         browser = Watir::Browser.new

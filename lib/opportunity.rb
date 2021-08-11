@@ -25,7 +25,7 @@ class Opportunity
     end
 
     def add_about_from_page(about)
-        self.about = about
+        @about = about
     end
 
     # def self.parsed_url(zip_input)
