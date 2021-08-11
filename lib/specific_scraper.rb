@@ -2,10 +2,8 @@ class SpecificScraper
 
     
     def self.scrape_specific_opportunities(link)
-        browser = Watir::Browser.new
-        puts "before browser.go_to".green
+        browser = Watir::Browser.new :chrome, headless: true
         browser.goto("https://www.mobilize.us#{link}")
-        puts "after browser.goto".green
         doc = Nokogiri::HTML(browser.html)
 
         @about = doc.css("#collapseEventDetail-description").text

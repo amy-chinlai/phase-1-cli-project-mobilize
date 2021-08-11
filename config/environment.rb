@@ -4,6 +4,7 @@ require 'open-uri'
 require 'geocoder'
 require 'colorize'
 require 'watir'
+require 'headless'
 
 require_relative '../lib/scraper'
 require_relative '../lib/opportunity'

@@ -6,6 +6,7 @@ GEM
     colorize (0.8.1)
     diff-lcs (1.4.4)
     geocoder (1.6.7)
+    headless (2.3.1)
     method_source (1.0.0)
     nokogiri (1.11.4-x86_64-darwin)
       racc (~> 1.4)
@@ -45,6 +46,7 @@ PLATFORMS
 DEPENDENCIES
   colorize
   geocoder
+  headless
   nokogiri (= 1.11.4)
   pry
   rspec
