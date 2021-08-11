@@ -9,7 +9,6 @@ class CLI
             puts "#{index + 1}. #{opportunity.name}".blue
             puts "  - #{opportunity.date}"
             puts "  - #{opportunity.location}"
-            puts "  - #{opportunity.link}"
         end
     end
 
@@ -34,11 +33,11 @@ class CLI
             puts "Hmm, looks like that zip code is invalid.".red
             begin_search
         else
-            Scraper.new
-            Scraper.parsed_url(zip_input)
-            Scraper.scrape_opportunities_page
-            Scraper.make_opportunities
+            @scraper = Scraper.new
             puts "Thanks!"
+            @scraper.parsed_url(zip_input)
+            @scraper.scrape_opportunities_page
+            @scraper.make_opportunities
             begin_details
         end
     end
@@ -53,8 +52,8 @@ class CLI
 
         specific_opportunity = Opportunity.all[details_input]
         specific_link = specific_opportunity.link
-        SpecificScraper.scrape_specific_opportunities(specific_link)
-        SpecificScraper.add_about
+        @scraper.scrape_specific_opportunities(specific_link)
+        @scraper.add_about
 
         print_details(specific_opportunity)
 

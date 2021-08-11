@@ -1,7 +1,7 @@
 class SpecificScraper
 
     
-    def self.scrape_specific_opportunities(link)
+    def scrape_specific_opportunities(link)
         browser = Watir::Browser.new :chrome, headless: true
         browser.goto("https://www.mobilize.us#{link}")
         doc = Nokogiri::HTML(browser.html)
@@ -9,7 +9,7 @@ class SpecificScraper
         @about = doc.css("#collapseEventDetail-description").text
     end
 
-    def self.add_about
+    def add_about
         Opportunity.all.select do |event|
             event.about = @about
         end
