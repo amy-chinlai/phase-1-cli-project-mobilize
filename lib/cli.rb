@@ -26,7 +26,7 @@ class CLI
     end
 
     def begin_search
-        puts "Let's find an event near you. What is your zip code?"
+        puts "Let's find an event near you. What is your five-digit zip code?"
 
         zip_input = gets.strip
         if !valid_zip?(zip_input)

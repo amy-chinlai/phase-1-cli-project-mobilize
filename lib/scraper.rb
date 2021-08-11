@@ -4,6 +4,7 @@ class Scraper
         parsed_url(zip_input)
         make_opportunities
         scrape_opportunities_page
+        add_about
     end
     
     # general scraper methods
