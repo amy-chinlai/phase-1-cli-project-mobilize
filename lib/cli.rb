@@ -1,9 +1,14 @@
 require 'geocoder'
+require 'colorize'
 require_relative '../lib/scraper'
 require_relative '../lib/opportunity'
 
 class CLI
 
+    def valid_zip?(zip_input)
+        return true if zip_input.to_s =~ /^[0-9]{5}?$/
+    end
+    
     def print_opportunities
         Opportunity.all.each_with_index do |opportunity, index|
             puts "#{index}. #{opportunity.name}"
@@ -21,23 +26,33 @@ class CLI
     end
 
 
-    def begin_search
+    def welcome
         puts "Hello, and welcome to the Mobilze search CLI!"
+        begin_search
+    end
+
+    def begin_search
         puts "Let's find an event near you. What is your zip code?"
 
         zip_input = gets.strip
-        Scraper.new
-        Scraper.parsed_url(zip_input)
-        puts "done parsing url!"
-        Scraper.scrape_opportunities_page
-        puts "done scraping opportunities page!"
-        Scraper.make_opportunities
-        puts "done making opportunities!"
-        # Opportunity.new_from_page
-        puts "Thanks!"
+        if !valid_zip?(zip_input)
+            puts "Hmm, looks like that zip code is invalid."
+            begin_search
+        else
+            Scraper.new
+            Scraper.parsed_url(zip_input)
+            puts "done parsing url!".green
+            Scraper.scrape_opportunities_page
+            puts "done scraping opportunities page!".green
+            Scraper.make_opportunities
+            puts "done making opportunities!".green
+            # Opportunity.new_from_page
+            puts "Thanks!"
+            begin_details
+        end
+    end
 
-
-        # should I add in a fallback if it's an invalid zip? Or do a regex?
+    def begin_details
         print_opportunities
 
         puts "Which event would you like to see more details for?"
@@ -49,10 +64,10 @@ class CLI
         Scraper.scrape_specific_opportunities
         Scraper.add_about
 
-        puts "printing details soon!"
+        puts "printing details soon!".green
         print_details(specific_opportunity)
 
-        puts "the details have been printed!"
+        puts "the details have been printed!".green
 
         puts "Do you want to see the list of events again? Please enter Y or N."
         again_input = gets.strip.downcase
