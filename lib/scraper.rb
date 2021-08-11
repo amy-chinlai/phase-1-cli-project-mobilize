@@ -1,7 +1,5 @@
 class Scraper
 
-    attr_accessor :zip_input, :opportunities
-
     
     def get_page
         browser = Watir::Browser.new(:phantomjs)

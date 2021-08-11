@@ -1,6 +1,6 @@
 class Opportunity
 
-    attr_accessor :date, :name, :location, :about, :latitude, :longitude, :link
+    attr_accessor :date, :name, :location, :about, :link
 
     @@all = []
 
