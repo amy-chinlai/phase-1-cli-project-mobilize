@@ -2,6 +2,7 @@ require 'geocoder'
 require 'colorize'
 require_relative '../lib/scraper'
 require_relative '../lib/opportunity'
+require_relative '../lib/specific_scraper'
 
 class CLI
 
@@ -60,9 +61,11 @@ class CLI
 
         specific_opportunity = Opportunity.all[details_input]
         specific_link = specific_opportunity.link
-        Scraper.specific_url(specific_link)
-        Scraper.scrape_specific_opportunities
-        Scraper.add_about
+        puts specific_link
+        SpecificScraper.new.specific_url(specific_link)
+        puts "done generating @specific_url".green
+        SpecificScraper.scrape_specific_opportunities
+        SpecificScraper.add_about
 
         puts "printing details soon!".green
         print_details(specific_opportunity)
