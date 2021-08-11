@@ -33,11 +33,8 @@ class CLI
             puts "Hmm, looks like that zip code is invalid.".red
             begin_search
         else
-            @scraper = Scraper.new
             puts "Thanks!"
-            @scraper.parsed_url(zip_input)
-            @scraper.scrape_opportunities_page
-            @scraper.make_opportunities
+            @scraper = Scraper.new(zip_input)
             begin_details
         end
     end

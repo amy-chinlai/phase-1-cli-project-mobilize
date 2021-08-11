@@ -1,5 +1,13 @@
 class Scraper
-
+    
+    def initialize(zip_input)
+        parsed_url(zip_input)
+        make_opportunities
+        scrape_opportunities_page
+    end
+    
+    # general scraper methods
+    
     def parsed_url(zip_input)
         results = Geocoder.search("#{zip_input}")
         latitude = results.first.latitude
