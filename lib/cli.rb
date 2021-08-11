@@ -56,8 +56,6 @@ class CLI
         specific_opportunity = Opportunity.all[details_input]
         specific_link = specific_opportunity.link
         puts specific_link
-        # SpecificScraper.new.specific_url(specific_link)
-        # puts "done generating @specific_url".green
         SpecificScraper.scrape_specific_opportunities(specific_link)
         SpecificScraper.add_about
 

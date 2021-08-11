@@ -5,7 +5,6 @@ class Scraper
     
     def get_page
         browser = Watir::Browser.new(:phantomjs)
-        # browser.goto(parsed_url)
         Nokogiri::HTML(browser.html)
         browser = Watir::Browser.new
         doc = Nokogiri::HTML(browser.html)
@@ -17,10 +16,6 @@ class Scraper
         longitude = results.first.longitude
         @url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}&lon=#{longitude}&show_all_events=true"
     end
-
-    # def self.specific_url(link)
-    #     @specific_url = "https://www.mobilize.us#{link}"
-    # end
 
     def self.make_opportunities
         @opportunities.map {|opportunity| Opportunity.new_from_page(opportunity[:name], opportunity[:date], opportunity[:location], opportunity[:link])}
@@ -48,22 +43,6 @@ class Scraper
         @opportunities
     end
 
-    # for specific opportunities
-
-    # def self.scrape_specific_opportunities
-    #     browser = Watir::Browser.new
-    #     browser.goto(@specific_url)
-    #     doc = Nokogiri::HTML(browser.html)
-
-    #     @about = doc.css("#collapseEventDetail-description").text
-    # end
-
-    # def self.add_about
-    #     Opportunity.all.select do |event|
-    #         event.about = @about
-    #     end
-    #     # Opportunity.add_about_from_page(@about)
-    # end
 
 
 end

@@ -1,5 +1,4 @@
 class Opportunity
-    # extend Geocoder::Model::ActiveRecord
 
     attr_accessor :date, :name, :location, :about, :latitude, :longitude, :link
 
@@ -26,31 +25,6 @@ class Opportunity
         @about = about
     end
 
-    # def self.parsed_url(zip_input)
-    #     coordinates = Geocoder.search(zip_input).first.coordinates
-    #     latitude = coordinates[0]
-    #     longitude = coordinates[1]
-    #     url = "https://www.mobilize.us/?address=#{zip_input}&lat=#{latitude}lon=#{longitude}&show_all_events=true"
-    #     url
-    # end
-
-    # def self.doc(parsed_url)
-    #     Nokogiri::HTML(open(parsed_url))
-    # end
-
-    # def name
-    #     @name || doc.css(".css-1i6gh54")
-    # end
-
-    # def date
-    #     @date || doc.css(".e1olnexu5")
-    # end
-
-    # def location
-    #     @location || doc.css(".e1olnexu14")
-    # end
-
-
-
+   
 
 end
