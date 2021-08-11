@@ -1,9 +1,3 @@
-require 'geocoder'
-require 'colorize'
-require_relative '../lib/scraper'
-require_relative '../lib/opportunity'
-require_relative '../lib/specific_scraper'
-
 class CLI
 
     def valid_zip?(zip_input)

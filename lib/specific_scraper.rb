@@ -1,6 +1,3 @@
-require 'watir'
-
-
 class SpecificScraper
 
     # def specific_url(link)

@@ -1,7 +1,3 @@
-require 'watir'
-require 'nokogiri'
-require 'geocoder'
-
 class Scraper
 
     attr_accessor :zip_input, :opportunities

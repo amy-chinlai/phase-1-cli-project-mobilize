@@ -1,5 +1,3 @@
-require 'geocoder'
-
 class Opportunity
     # extend Geocoder::Model::ActiveRecord
 
