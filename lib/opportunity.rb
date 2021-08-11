@@ -13,8 +13,8 @@ class Opportunity
         @@all << self
     end
 
-    def self.new_from_page(name, date, location, link)
-        self.new(name, date, location, link)
+    def self.new_from_page(event)
+        self.new(event.css(".css-1i6gh54").text, event.css(".e1olnexu5").text, event.css(".e1olnexu14").text, event.attribute("href").value)
     end
 
     def self.all
