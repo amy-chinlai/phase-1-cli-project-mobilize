@@ -19,12 +19,6 @@ class Opportunity
 
     def self.all
         @@all
-    end
-
-    def add_about_from_page(about)
-        @about = about
-    end
-
-   
+    end   
 
 end
