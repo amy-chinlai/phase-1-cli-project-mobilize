@@ -14,9 +14,9 @@ The second scrape happens in `#scrape_specific_opportunities` and `#add_about`. 
 
 ## Installation
 
-    Go to https://github.com/amy-chinlai/phase-1-cli-project-mobilize and clone the repository to your local machine.
-    Run `bundle install`.
-    Run `brew install --cask chromedriver`. You will need Homebrew (https://brew.sh/) to do this.
+Go to https://github.com/amy-chinlai/phase-1-cli-project-mobilize and clone the repository to your local machine.
+Run `bundle install`.
+Run `brew install --cask chromedriver`. You will need Homebrew (https://brew.sh/) to do this.
 
 ## Usage
 
