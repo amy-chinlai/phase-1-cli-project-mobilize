@@ -55,6 +55,7 @@ class CLI
         print_details(specific_opportunity)
 
         puts "Do you want to see the list of events again? Please enter Y or N."
+        # provide option to look at new zip code
         again_input = gets.strip.downcase
 
         if again_input == "y"

@@ -4,7 +4,7 @@ class Opportunity
 
     @@all = []
 
-    def initialize(name = nil, date = "There is no specified time for this event!", location = "There's no location for this event!", about = "There's no additional information here!", link)
+    def initialize(name, date = "There is no specified time for this event!", location = "There's no location for this event!", link)
         @name = name
         @location = location
         @date = date
@@ -15,6 +15,10 @@ class Opportunity
 
     def self.new_from_page(event)
         self.new(event.css(".css-1i6gh54").text, event.css(".e1olnexu5").text, event.css(".e1olnexu14").text, event.attribute("href").value)
+        # .css-1i6gh54 is name
+        # .e1olnexu5 is date
+        # .e1olnexu14 is address
+
     end
 
     def self.all

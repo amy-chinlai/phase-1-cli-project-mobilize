@@ -3,7 +3,6 @@ class Scraper
     def initialize(zip_input)
         parsed_url(zip_input)
         make_opportunities
-        scrape_opportunities_page
         add_about
     end
     
