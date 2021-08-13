@@ -18,7 +18,13 @@ Go to https://github.com/amy-chinlai/phase-1-cli-project-mobilize and clone the 
 
 Run `bundle install`.
 
+Make sure you have Chromedriver installed.
+
+On Mac:
 Run `brew install --cask chromedriver`. You will need Homebrew (https://brew.sh/) to do this.
+
+On Windows/Linux:
+See instructions here: https://chromedriver.chromium.org/getting-started
 
 
 

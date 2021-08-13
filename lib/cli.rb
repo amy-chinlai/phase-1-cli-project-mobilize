@@ -78,7 +78,7 @@ class CLI
             begin_search
         else
             puts "I didn't understand that answer. Let's start over, shall we?".red
-            begin_search
+            begin_close
         end
 
     end
