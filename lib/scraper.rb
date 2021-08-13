@@ -38,7 +38,7 @@ class Scraper
     end
 
     def add_about
-        Opportunity.all.select do |event|
+        Opportunity.all.each do |event|
             event.about = @about
         end
     end
